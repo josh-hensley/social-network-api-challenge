@@ -1,6 +1,6 @@
 // ObjectId() method for converting userId string into an ObjectId for querying database
 // import { ObjectId } from 'mongodb';
-import { User } from '../models/index.js';
+import { User, Thought } from '../models/index.js';
 import { Request, Response } from 'express';
 
 /**
@@ -84,6 +84,7 @@ export const deleteUser = async (req: Request, res: Response) => {
     try {
         const { userId } = req.params
         const user = await User.findOneAndDelete({ _id: userId });
+        // const thoughtsArray = user.thoughts ? user.thoughts : []
 
         if (!user) {
             return res.status(404).json({ message: 'No such user exists' });

@@ -5,14 +5,13 @@ import { Thought, User } from '../models/index.js';
  * GET All Thoughts /thoughts
  * returns an array of Thoughts
 */
+
 export const getAllThoughts = async(_req: Request, res: Response) => {
     try {
         const thoughts = await Thought.find();
         res.json(thoughts);
     } catch(error: any){
-        res.status(500).json({
-            message: error.message
-        });
+        res.status(500).json(error.message);
     }
 }
 
@@ -21,6 +20,7 @@ export const getAllThoughts = async(_req: Request, res: Response) => {
  * param string id
  * returns a single Thought object
 */
+
 export const getThoughtById = async (req: Request, res: Response) => {
     const { thoughtId } = req.params;
     try {
