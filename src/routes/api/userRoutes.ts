@@ -4,21 +4,29 @@ import {
   getAllUsers,
   getUserById,
   createUser,
+  updateUser,
   deleteUser,
-  addAssignment,
-  removeAssignment,
+  addFriend,
+  removeFriend,
 } from '../../controllers/userController';
 
 // /api/Users
-router.route('/').get(getAllUsers).post(createUser);
+router.route('/')
+  .get(getAllUsers)
+  .post(createUser);
 
 // /api/Users/:userId
-router.route('/:userId').get(getUserById).delete(deleteUser);
+router.route('/:userId')
+  .get(getUserById)
+  .put(updateUser)
+  .delete(deleteUser);
 
-// /api/Users/:UserId/assignments
-router.route('/:userId/assignments').post(addAssignment);
+// /api/Users/:userId/friends
+router.route('/:userId/friends')
+  .post(addFriend);
 
-// /api/Users/:UserId/assignments/:assignmentId
-router.route('/:userId/assignments/:assignmentId').delete(removeAssignment);
+// /api/Users/:UserId/friends/:friendId
+router.route('/:userId/friends/:friendId')
+  .delete(removeFriend);
 
 export { router as userRouter} ;

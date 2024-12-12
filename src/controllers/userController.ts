@@ -1,5 +1,3 @@
-// ObjectId() method for converting userId string into an ObjectId for querying database
-import { ObjectId } from 'mongodb';
 import { User } from '../models/index.js';
 import { Request, Response } from 'express';
 
