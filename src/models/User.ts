@@ -6,7 +6,7 @@ interface IAssignment extends Document {
     score: number
 }
 
-interface IStudent extends Document {
+interface IUser extends Document {
     first: string,
     last: string,
     github: string,
@@ -38,7 +38,7 @@ const assignmentSchema = new Schema<IAssignment>(
     }
 );
 
-const studentSchema = new Schema<IStudent>({
+const userSchema = new Schema<IUser>({
     first: {
         type: String,
         required: true,
@@ -64,6 +64,6 @@ const studentSchema = new Schema<IStudent>({
     }
 );
 
-const Student = model('Student', studentSchema);
+const User = model('User', userSchema);
 
-export default Student;
+export default User;
