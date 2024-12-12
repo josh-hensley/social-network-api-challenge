@@ -7,7 +7,7 @@ import {
   deleteUser,
   addAssignment,
   removeAssignment,
-} from '../../controllers/userController.js';
+} from '../../controllers/userController';
 
 // /api/Users
 router.route('/').get(getAllUsers).post(createUser);

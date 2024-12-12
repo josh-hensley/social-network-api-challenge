@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { userRouter } from './userRoutes.js';
-import { thoughtRouter } from './thoughtRoutes.js';
+import { userRouter } from './userRoutes';
+import { thoughtRouter } from './thoughtRoutes';
 
 const router = Router();
 
