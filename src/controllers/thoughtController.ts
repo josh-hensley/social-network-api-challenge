@@ -22,9 +22,9 @@ export const getAllThoughts = async(_req: Request, res: Response) => {
 */
 
 export const getThoughtById = async (req: Request, res: Response) => {
-    const { id } = req.params;
+    const { thoughtId } = req.params;
     try {
-      const thought = await Thought.findById(id);
+      const thought = await Thought.findById(thoughtId);
       if(!thought) {
         res.status(404).json('Thought not found');
       }
@@ -57,9 +57,9 @@ export const createThought = async (req: Request, res: Response) => {
 
 export const updateThought = async (req: Request, res: Response) => {
     try {
-      const { id } = req.params;
+      const { thoughtId } = req.params;
       const update = req.body;
-      const thought = await Thought.findOneAndUpdate({_id: id}, update, { new: true });
+      const thought = await Thought.findOneAndUpdate({_id: thoughtId}, update, { new: true });
       if (!thought) {
         res.status(404).json({ message: 'No thought with this id!' });
       }
@@ -77,7 +77,7 @@ export const updateThought = async (req: Request, res: Response) => {
 
 export const deleteThought = async (req: Request, res: Response) => {
     try {
-      const thought = await Thought.findOneAndDelete({ _id: req.params.id});
+      const thought = await Thought.findOneAndDelete({ _id: req.params.thoughtId});
       if(!thought) {
         res.status(404).json('No thought with that ID');
       }
@@ -95,9 +95,9 @@ export const deleteThought = async (req: Request, res: Response) => {
 
   export const addReaction = async (req: Request, res: Response) => {
     try {
-      const { id } = req.params;
+      const { thoughtId } = req.params;
       const reactions = req.body;
-      const thought = await Thought.findOneAndUpdate({ _id: id }, { $addToSet: reactions }, { new: true })
+      const thought = await Thought.findOneAndUpdate({ _id: thoughtId }, { $addToSet: reactions }, { new: true })
       res.json(thought);
     } catch (error: any) {
       res.status(500).json(error.message)
