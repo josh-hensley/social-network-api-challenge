@@ -1,38 +1,54 @@
-import { Schema, model, type Document } from 'mongoose';
+import { Schema, Types, model, type Document } from 'mongoose';
+
+interface IReaction extends Document {
+    reactionID: Schema.Types.ObjectId,
+    reactionBody: String,
+    username: String,
+    createdAt: Date
+}
 
 interface IThought extends Document {
-    name: string,
-    inPerson: boolean,
-    start: Date,
-    end: Date,
-    users: Schema.Types.ObjectId[]
+    thoughtText: string,
+    createdAt: Date,
+    username: String,
+    reactions: Schema.Types.ObjectId[]
 }
+
+const reactionSchema = new Schema<IReaction>({
+    reactionID: {
+        type: Schema.Types.ObjectId,
+        default: new Types.ObjectId()
+    },
+    reactionBody: {
+        type: String,
+        required: [ true, 'Reaction must have body.'],
+        maxlength: 280
+    },
+    username: {
+        type: String,
+        required: [true, 'Reaction must include username']
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now()
+    }
+})
 
 const thoughtSchema = new Schema<IThought>(
     {
-        name: {
+        thoughtText: {
             type: String,
-            required: true,
+            required: [ true, 'Thoughts must have text']
         },
-        inPerson: {
-            type: Boolean,
-            default: true,
-        },
-        start: {
+        createdAt: {
             type: Date,
-            default: Date.now(),
+            default: Date.now()
         },
-        end: {
-            type: Date,
-            // Sets a default value of 12 weeks from now
-            default: () => new Date(+new Date() + 84 * 24 * 60 * 60 * 1000),
+        username: {
+            type: String,
+            default: [ true, 'Thoughts must include username.' ]
         },
-        users: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: 'user',
-            },
-        ],
+        reactions: [reactionSchema]
     },
     {
         toJSON: {
@@ -41,6 +57,10 @@ const thoughtSchema = new Schema<IThought>(
         timestamps: true
     },
 );
+
+thoughtSchema.virtual('reactionCount').get(function(){
+    return this.reactions.length;
+});
 
 const Thought = model<IThought>('Thought', thoughtSchema);
 

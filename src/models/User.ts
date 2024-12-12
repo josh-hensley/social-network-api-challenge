@@ -1,7 +1,6 @@
 import { Schema, model, type Document } from 'mongoose';
 
 interface IUser extends Document {
-    userID: Schema.Types.ObjectId,
     username: string,
     email: string,
     thoughts: Schema.Types.ObjectId[],
@@ -39,9 +38,9 @@ const userSchema = new Schema<IUser>({
     {
         toJSON: {
             getters: true,
+            virtuals: true
         },
-        timestamps: true,
-        virtuals: true
+        timestamps: true
     }
 );
 
