@@ -1,7 +1,7 @@
 import { Schema, Types, model, type Document } from 'mongoose';
 
 interface IReaction extends Document {
-    reactionID: Schema.Types.ObjectId,
+    reactionId: Schema.Types.ObjectId,
     reactionBody: String,
     username: String,
     createdAt: Date
@@ -15,7 +15,7 @@ interface IThought extends Document {
 }
 
 const reactionSchema = new Schema<IReaction>({
-    reactionID: {
+    reactionId: {
         type: Schema.Types.ObjectId,
         default: new Types.ObjectId()
     },

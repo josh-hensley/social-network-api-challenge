@@ -1,6 +1,6 @@
 // ObjectId() method for converting userId string into an ObjectId for querying database
-// import { ObjectId } from 'mongodb';
-import { User, Thought } from '../models/index.js';
+import { ObjectId } from 'mongodb';
+import { User } from '../models/index.js';
 import { Request, Response } from 'express';
 
 /**
@@ -56,7 +56,7 @@ export const createUser = async (req: Request, res: Response) => {
  * PUT user based on id /users/:id
  * param string id
  * body update object
- * returns string 
+ * returns updated user object 
 */
 
 export const updateUser = async (req: Request, res: Response) => {
@@ -93,5 +93,45 @@ export const deleteUser = async (req: Request, res: Response) => {
         return res.json({ message: 'user successfully deleted' });
     } catch (error: any) {
         return res.status(500).json(error.message);
+    }
+}
+
+/**
+ * POST friend based on id and friend id /users/:userId/friends/:friendId
+ * param string userId, friendId
+ * returns updated user object
+ */
+
+export const addFriend = async (req: Request, res: Response) => {
+    try {
+        const { userId, friendId } = req.params;
+        const friends = await User.find({ _id: userId }).select('friends');
+        const update = [...friends, friendId]
+        const user = await User.findOneAndUpdate({ _id: userId }, update, { new: true });
+        if (!user){
+            res.status(404).json('No user found!')
+        }
+        res.json(user)
+    } catch (error: any) {
+        res.status(500).json(error.message)
+    }
+}
+
+/**
+ * DELETE friend based on id and friend id /users/:userId/friends/:friendId
+ * param string userId, friendId
+ * returns string
+ */
+
+export const removeFriend = async (req: Request, res: Response) => {
+    try {
+        const { userId, friendId } = req.params;
+        const user = await User.findOneAndUpdate({ _id: userId }, { $pull: { friends: friendId } }, { new: true });
+        if (!user){
+            res.status(404).json('No user found!')
+        }
+        res.json(user)
+    } catch (error: any) {
+        res.status(500).json(error.message)
     }
 }

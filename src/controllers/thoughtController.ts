@@ -88,6 +88,7 @@ export const updateThought = async (req: Request, res: Response) => {
  * param string id
  * returns string 
 */
+
 export const deleteThought = async (req: Request, res: Response) => {
     try {
       const thought = await Thought.findOneAndDelete({ _id: req.params.thoughtId});
