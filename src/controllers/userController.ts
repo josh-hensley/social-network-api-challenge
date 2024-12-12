@@ -4,8 +4,8 @@ import { User, Thought } from '../models/index.js';
 import { Request, Response } from 'express';
 
 export const headCount = async () => {
-    const numberOfusers = await User.aggregate([{ $count: 'numberOfusers' }])
-    return numberOfusers;
+    const numberOfUsers = await User.aggregate([{ $count: 'numberOfusers' }])
+    return numberOfUsers;
 }
 
 // Aggregate function for getting the overall grade using $avg
@@ -29,7 +29,7 @@ export const grade = async (userId: string) =>
  * GET All users /users
  * returns an array of users
 */
-export const getAllusers = async (_req: Request, res: Response) => {
+export const getAllUsers = async (_req: Request, res: Response) => {
     try {
         const users = await User.find().select(['-assignments', '-__v']);
 
@@ -51,7 +51,7 @@ export const getAllusers = async (_req: Request, res: Response) => {
  * param string id
  * returns a single user object
 */
-export const getuserById = async (req: Request, res: Response) => {
+export const getUserById = async (req: Request, res: Response) => {
     const { userId } = req.params;
     try {
         const user = await User.findById(userId);
@@ -78,7 +78,7 @@ export const getuserById = async (req: Request, res: Response) => {
  * returns a single user object
 */
 
-export const createuser = async (req: Request, res: Response) => {
+export const createUser = async (req: Request, res: Response) => {
     try {
         const user = await User.create(req.body);
         res.json(user);
@@ -92,7 +92,7 @@ export const createuser = async (req: Request, res: Response) => {
  * returns string 
 */
 
-export const deleteuser = async (req: Request, res: Response) => {
+export const deleteUser = async (req: Request, res: Response) => {
     try {
         const user = await User.findOneAndDelete({ _id: req.params.userId });
 
