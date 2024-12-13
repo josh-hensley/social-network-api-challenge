@@ -8,7 +8,7 @@ import {
   deleteUser,
   addFriend,
   removeFriend,
-} from '../../controllers/userController';
+} from '../../controllers/userController.js';
 
 // /api/Users
 router.route('/')

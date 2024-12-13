@@ -8,7 +8,7 @@ import {
   deleteThought,
   addReaction,
   deleteReaction
-} from '../../controllers/thoughtController';
+} from '../../controllers/thoughtController.js';
 
 // /api/thoughts
 router

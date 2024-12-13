@@ -38,7 +38,8 @@ const thoughtSchema = new Schema<IThought>(
     {
         thoughtText: {
             type: String,
-            required: [ true, 'Thoughts must have text']
+            required: true,
+            default: 'Thoughts must have text'
         },
         createdAt: {
             type: Date,
@@ -46,7 +47,8 @@ const thoughtSchema = new Schema<IThought>(
         },
         username: {
             type: String,
-            default: [ true, 'Thoughts must include username.' ]
+            required: true,
+            default: 'Thoughts must include username.'
         },
         reactions: [reactionSchema]
     },

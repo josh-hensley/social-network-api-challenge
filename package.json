@@ -8,12 +8,14 @@
     "build": "npx tsc",
     "start": "npm run build && node dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "seed": "npm run build && node dist/seeds/index.js"
+    "seed": "npm run build && node dist/seeds/index.js",
+    "dev": "npm run seed && npm run start"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.4.7",
     "express": "^4.19.2",
     "mongoose": "^8.5.3"
   },
