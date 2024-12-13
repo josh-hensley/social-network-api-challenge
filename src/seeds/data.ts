@@ -176,7 +176,7 @@ export const getRandomUsername = () => {
   }
 }
 
-export const getRandomEmail = () => `${getRandom(names).toLowerCase()}@${getRandom(emailDomains)}`;
+export const getRandomEmail = (username: string) => `${username.toLowerCase()}@${getRandom(emailDomains)}`;
 
 export const getRandomThoughts = (int: number, username: string) => {
   const results = [];

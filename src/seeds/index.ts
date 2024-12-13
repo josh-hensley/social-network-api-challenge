@@ -7,31 +7,30 @@ try {
   await db();
   await cleanDB();
 
-  const users: any[] = [];
-  const thoughts: any[] = [];
+  const userIds: any[] = [];
 
   for (let i = 0; i < 20; i++) {
     const username = getRandomUsername();
-    const email = getRandomEmail();
-
-    thoughts.push(...getRandomThoughts(randomNumber(10), username));
-
-    users.push({
-      username,
-      email
-    });
+    const email = getRandomEmail(username);
+    const thoughts = getRandomThoughts(randomNumber(10), username);
+    const thoughtData = await Thought.insertMany(thoughts);
+    const thoughtIds = thoughtData.map(thought=>thought._id);
+    const user = await User.create({ username, email, thoughts: thoughtIds, friends: [] });
+    userIds.push(user._id);
   }
 
-  const userData = await User.insertMany(users);
-  const thoughtData = await Thought.insertMany(thoughts);
 
-  console.table(userData);
-  console.table(thoughtData);
+  for (const userId of userIds) {
+    for (let i = 0; i < randomNumber(11); i++){
+      const friend = userIds[randomNumber(userIds.length)];
+      await User.findByIdAndUpdate(userId, { $addToSet: { friends: friend } });
+    }
+  }
 
   console.info('Seeding complete! 🌱');
   process.exit(0);
-} catch (error) {
-  console.error('Error seeding database:', error);
+} catch (error: any) {
+  console.error('Error seeding database:', error.message);
   process.exit(1);
 }
 

@@ -48,7 +48,8 @@ const thoughtSchema = new Schema<IThought>(
         username: {
             type: String,
             required: true,
-            default: 'Thoughts must include username.'
+            default: 'Thoughts must include username.',
+            ref: 'User'
         },
         reactions: [reactionSchema]
     },
