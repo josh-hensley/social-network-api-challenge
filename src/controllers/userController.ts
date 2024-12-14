@@ -103,9 +103,7 @@ export const deleteUser = async (req: Request, res: Response) => {
 export const addFriend = async (req: Request, res: Response) => {
     try {
         const { userId, friendId } = req.params;
-        const friends = await User.find({ _id: userId }).select('friends');
-        const update = [...friends, friendId]
-        const user = await User.findOneAndUpdate({ _id: userId }, update, { new: true });
+        const user = await User.findOneAndUpdate({ _id: userId }, { $addToSet: { friends: friendId } }, { new: true });
         if (!user){
             res.status(404).json('No user found!')
         }

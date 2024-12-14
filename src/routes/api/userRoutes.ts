@@ -19,14 +19,11 @@ router.route('/')
 router.route('/:userId')
   .get(getUserById)
   .put(updateUser)
-  .delete(deleteUser);
-
-// /api/Users/:userId/friends
-router.route('/:userId/friends')
-  .post(addFriend);
+  .delete(deleteUser);  
 
 // /api/Users/:UserId/friends/:friendId
 router.route('/:userId/friends/:friendId')
+  .post(addFriend)
   .delete(removeFriend);
 
 export { router as userRouter} ;
