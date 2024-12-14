@@ -19,7 +19,7 @@ A back-end for a social media type app.  This app uses MongoDB, Express.js, and 
 
 ## <a name="Installation"></a>Installation
 
-This app requires [node.js](https://nodejs.org/en/download/prebuilt-installer). From the commandline,  run `npm i` from the root folder to install dependencies.
+This app requires [node.js](https://nodejs.org/en/download/prebuilt-installer). From the commandline,  run `npm i` from the root folder to install dependencies. Rename the .env.EXAMPLE to .env and replace MONGODB_URI with "your-MongDB-URI/social-network-db", for example: "mongodb://127.0.0.1:27017/social-network-db".
 
 ## <a name="Usage"></a>Usage
 
