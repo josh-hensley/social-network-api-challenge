@@ -1,4 +1,4 @@
-import { User } from '../models/index.js';
+import { User, Thought } from '../models/index.js';
 import { Request, Response } from 'express';
 
 /**
@@ -81,14 +81,19 @@ export const updateUser = async (req: Request, res: Response) => {
 export const deleteUser = async (req: Request, res: Response) => {
     try {
         const { userId } = req.params
-        const user = await User.findOneAndDelete({ _id: userId });
-        // const thoughtsArray = user.thoughts ? user.thoughts : []
-
+        const user: any = await User.findOneAndDelete({ _id: userId });
+        
         if (!user) {
             return res.status(404).json({ message: 'No such user exists' });
         }
 
-        return res.json({ message: 'user successfully deleted' });
+        if (user.thoughts){
+            for (const thought of user.thoughts){
+                await Thought.findByIdAndDelete(thought);
+            };
+        } 
+
+        return res.json({ message: 'user and thoughts successfully deleted' });
     } catch (error: any) {
         return res.status(500).json(error.message);
     }
