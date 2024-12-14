@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Thought } from '../models/index.js';
+import { Thought, User } from '../models/index.js';
 
 /**
  * GET All Thoughts /thoughts
@@ -43,6 +43,7 @@ export const getThoughtById = async (req: Request, res: Response) => {
 export const createThought = async (req: Request, res: Response) => {
     try {
       const thought = await Thought.create(req.body);
+      await User.findOneAndUpdate({ username: thought.username }, { $addToSet: { thoughts:thought._id } });
       res.json(thought);
     } catch (error: any) {
       res.status(500).json(error.message);
@@ -97,7 +98,7 @@ export const deleteThought = async (req: Request, res: Response) => {
     try {
       const { thoughtId } = req.params;
       const reactions = req.body;
-      const thought = await Thought.findOneAndUpdate({ _id: thoughtId }, { $addToSet: reactions }, { new: true })
+      const thought = await Thought.findOneAndUpdate({ _id: thoughtId }, { $addToSet: { reactions } }, { new: true })
       res.json(thought);
     } catch (error: any) {
       res.status(500).json(error.message)
