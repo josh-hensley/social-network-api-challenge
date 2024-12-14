@@ -23,6 +23,8 @@ This app requires [node.js](https://nodejs.org/en/download/prebuilt-installer). 
 
 ## <a name="Usage"></a>Usage
 
+https://github.com/user-attachments/assets/484ec2ae-f8a3-4026-9098-8c11b238fc0b
+
 Use `npm run dev` to build, generate seed data, and start the server. You can also do each of these actions individually by using `npm run build`, `npm run seed`, and `npm start`.
 
 After starting the server, use an app like Insomnia to send http requests to localhost://3001.  Usable routes are as follows:
