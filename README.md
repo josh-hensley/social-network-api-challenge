@@ -4,6 +4,10 @@
 
 ## Description
 
+
+https://github.com/user-attachments/assets/90ccfa31-e624-483a-81be-d4ea782c0e72
+
+
 A back-end for a social media type app.  This app uses MongoDB, Express.js, and Node.js.
 
 ## Table of Contents
